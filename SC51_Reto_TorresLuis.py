@@ -70,3 +70,18 @@ plt.title("distribucion kde pasajeros mensuales")
 plt.xlabel("pasajeros")
 plt.ylabel("densidad")
 plt.show()
+
+# grafica de dispersion:
+
+plt.figure(figsize=(10, 6))
+sns.scatterplot(
+    data=df_meses,
+    x="Autobuses",
+    y="Personal",
+    s=80
+)
+
+plt.title("relacion entre autobuses y personal")
+plt.xlabel("autobuses")
+plt.ylabel("personal")
+plt.show()
