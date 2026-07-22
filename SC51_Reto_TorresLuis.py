@@ -41,3 +41,18 @@ plt.title("distribucion del num de vehiculos por clase")
 plt.xlabel("clase de vehiculo")
 plt.ylabel("unidades")
 plt.show()
+
+# 4. histograma: automoviles por entidad
+
+plt.figure(figsize=(10, 6))
+sns.histplot(
+    data=df_entidades,
+    x="Automovil",
+    bins=8,
+    kde=False
+)
+
+plt.title("distribucion del numero de automoviles por cada entidad")
+plt.xlabel("num de automoviles")
+plt.ylabel("frecuencia")
+plt.show()
