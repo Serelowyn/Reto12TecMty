@@ -1,7 +1,9 @@
 # -------------- importaciones
 
 import pandas as pd
- 
+from matplotlib import pyplot as plt
+import seaborn as sns
+
 # -------------- fin de las importaciones
 
 # 1. se cargan los dos csv del reto de autotransporte federal de turismo
@@ -25,9 +27,17 @@ print(df_meses.columns)
 # la columna Personal trae un espacio de mas al final, se quita
 df_meses = df_meses.rename(columns={"Personal ": "Personal"})
 
-# se revisan nulos por si hace falta rellenar algo, en este caso no hay nulos
 print(df_entidades.isnull().sum())
 print(df_meses.isnull().sum())
 """no se requieren cambios de null"""
 
 columnas_vehiculos = ["Automovil", "Autobus", "Camioneta"]
+
+# 3. grafica de caja de bigotes
+
+plt.figure(figsize=(10, 6))
+sns.boxplot(data=df_entidades[columnas_vehiculos])
+plt.title("distribucion del num de vehiculos por clase")
+plt.xlabel("clase de vehiculo")
+plt.ylabel("unidades")
+plt.show()
