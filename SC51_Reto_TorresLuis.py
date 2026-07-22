@@ -4,6 +4,7 @@ import pandas as pd
 from matplotlib import pyplot as plt
 import seaborn as sns
 from scipy.stats import linregress
+from sklearn.linear_model import LinearRegression
 
 # -------------- fin de las importaciones
 
@@ -137,3 +138,51 @@ else:
     fuerza = "debil o nula"
 signo = "positiva" if r_value > 0 else "negativa"
 print(f"existe una relacion {signo} {fuerza} entre pasajeros y kilometros recorridos")
+
+# 8. grafica residual del modelo pasajeros - kilometros
+X = df_meses[["Pasajeros"]]
+Y = df_meses["Kilómetros"]
+
+modelo = LinearRegression()
+modelo.fit(X, Y)
+Y_pred = modelo.predict(X)
+residuos = Y - Y_pred
+
+plt.figure(figsize=(10, 6))
+plt.scatter(Y_pred, residuos, color="red", s=70)
+plt.axhline(y=0, color="gray", linestyle="--")
+plt.title("grafica residual: pasajeros - kilometros")
+plt.xlabel("kms pronosticados")
+plt.ylabel("residuo")
+plt.show()
+
+# 9. grafica tridimensional: automovil, autobus y camioneta por entidad
+fig = plt.figure(figsize=(9, 7))
+ax = fig.add_subplot(111, projection="3d")
+ax.scatter(
+    df_entidades["Automovil"],
+    df_entidades["Autobus"],
+    df_entidades["Camioneta"],
+    c="red"
+)
+ax.set_xlabel("automovil")
+ax.set_ylabel("autobus")
+ax.set_zlabel("camioneta")
+ax.set_title("relacion entre automovil, autobus y camioneta por entidad")
+plt.show()
+
+# 10. grafica de pastel: proporcion total por clase de vehiculo
+totales = df_entidades[columnas_vehiculos].sum().reset_index()
+totales.columns = ["clase_vehiculo", "total_unidades"]
+totales["porcentaje"] = (totales["total_unidades"] / totales["total_unidades"].sum()) * 100
+print(totales)
+
+plt.figure(figsize=(8, 8))
+plt.pie(
+    totales["total_unidades"],
+    labels=totales["clase_vehiculo"],
+    autopct="%1.1f%%",
+    startangle=90
+)
+plt.title("distribucion total por clase de vehiculo")
+plt.show()
