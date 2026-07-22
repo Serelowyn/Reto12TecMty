@@ -56,3 +56,17 @@ plt.title("distribucion del numero de automoviles por cada entidad")
 plt.xlabel("num de automoviles")
 plt.ylabel("frecuencia")
 plt.show()
+
+# kdeplot: densidad de pasajeros mensuales
+
+plt.figure(figsize=(10, 6))
+sns.kdeplot(
+    data=df_meses,
+    x="Pasajeros",
+    fill=True
+)
+
+plt.title("distribucion kde pasajeros mensuales")
+plt.xlabel("pasajeros")
+plt.ylabel("densidad")
+plt.show()
